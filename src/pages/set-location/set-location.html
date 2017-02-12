@@ -14,5 +14,30 @@
 
 
 <ion-content padding>
-
+  <sebm-google-map
+    [latitude]="location.lat"
+    [longitude]="location.lng"
+    [zoom] = "16"
+    (mapClick)= "onSetMarker($event)"
+  >
+    <sebm-google-map-marker
+      [latitude]="marker.lat"
+      [longitude]="marker.lng"
+      *ngIf="marker"
+    ></sebm-google-map-marker>	
+  </sebm-google-map>
+  <ion-grid>
+  	<ion-row>
+  		<ion-col>
+  			<button ion-button block color="secondary" (click)="onConfirm()" [disabled]="!marker">
+  				Confirm
+  			</button> 			
+  		</ion-col>
+  		<ion-col>
+  			<button ion-button block color="danger" (click)="onAbort()">
+  				Abort
+  			</button>   			
+  		</ion-col>
+  	</ion-row>
+  </ion-grid>
 </ion-content>
