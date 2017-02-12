@@ -33,7 +33,7 @@ export class AddPlacePage {
   }
 
   onOpenMap(){
-  	const modal=this.modalCtrl.create(SetLocationPage,{location:this.location});
+  	const modal=this.modalCtrl.create(SetLocationPage,{location:this.location,isSet:this.locationIsSet});
   	modal.present();
   	modal.onDidDismiss(data=>{
   		this.location=data.location;

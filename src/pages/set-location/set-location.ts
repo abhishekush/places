@@ -22,6 +22,9 @@ export class SetLocationPage {
    public viewCtrl: ViewController
    ) {
     this.location=this.navParams.get('location');
+    if(this.navParams.get('isSet')){
+    	this.marker=this.location;
+    }
   }
 
   ionViewDidLoad() {
