@@ -4,6 +4,7 @@ import {NgForm} from '@angular/forms';
 import {ModalController} from 'ionic-angular';
 import {SetLocationPage} from '../set-location/set-location';
 import {Location} from '../../models/location';
+import {Geolocation} from 'ionic-native';
 /*
   Generated class for the AddPlace page.
 
@@ -42,8 +43,20 @@ export class AddPlacePage {
   	})
   }
 
+  onLocate(){
+  	Geolocation.getCurrentPosition().then((loc)=>{
+      this.location.lat = loc.coords.latitude;
+      this.location.lng = loc.coords.longitude
+      this.locationIsSet = true;
+  	}).catch(error=>{
+  		console.log(error);
+  	})
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPlacePage');
   }
+
+
 
 }
