@@ -6,7 +6,7 @@ export class Place{
      public title:string,
      public description:string,
      public location:Location,
-     public imagePath:string
+     public imageUrl:string
   	){}
 
 }
