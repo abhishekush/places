@@ -44,4 +44,11 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="CameraPreview">
+        <param name="android-package" value="com.mbppower.CameraPreview" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

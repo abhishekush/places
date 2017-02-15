@@ -70,4 +70,11 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
+    <feature name="CameraPreview">
+        <param name="ios-package" onload="true" value="CameraPreview" />
+    </feature>
 </widget>

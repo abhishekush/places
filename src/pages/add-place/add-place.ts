@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {NgForm} from '@angular/forms';
-import {ModalController} from 'ionic-angular';
+import {ModalController,LoadingController, ToastController} from 'ionic-angular';
 import {SetLocationPage} from '../set-location/set-location';
 import {Location} from '../../models/location';
-import {Geolocation} from 'ionic-native';
+import {Geolocation, Camera} from 'ionic-native';
 /*
   Generated class for the AddPlace page.
 
@@ -22,11 +22,14 @@ export class AddPlacePage {
     lng: 73.323685
   };
   public locationIsSet=false;
+  public imageUrl = '';
 
   constructor(
    public navCtrl: NavController,
    public navParams: NavParams,
-   public modalCtrl: ModalController
+   public modalCtrl: ModalController,
+   public loadCtrl: LoadingController,
+   public toastCtrl: ToastController
    ) {}
 
   onSubmit(form:NgForm){
@@ -44,14 +47,37 @@ export class AddPlacePage {
   }
 
   onLocate(){
+  	const load = this.loadCtrl.create({
+  		content: 'Fetching Your Location...'
+  	});
+  	load.present()
   	Geolocation.getCurrentPosition().then((loc)=>{
+  	  load.dismiss();	
       this.location.lat = loc.coords.latitude;
       this.location.lng = loc.coords.longitude
       this.locationIsSet = true;
   	}).catch(error=>{
+  		load.dismiss();
+  		const toast = this.toastCtrl.create({
+  			message : 'Could not get location, please pick it manually!',
+  			duration: 2500
+  		});
+  		toast.present()
   		console.log(error);
   	})
   }
+
+  onTakePhoto() {
+  	Camera.getPicture({
+  		encodingType: Camera.EncodingType.JPEG,
+  		correctOrientation: true
+  	}).then(imageData=>{
+  		this.imageUrl = imageData;
+  	}).catch(error=>{
+  		console.log(error);
+  	})
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPlacePage');

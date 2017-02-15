@@ -39,6 +39,18 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CameraPreview\"><param name=\"ios-package\" onload=\"true\" value=\"CameraPreview\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -46,6 +58,22 @@
             "*-Info.plist": {
                 "parents": {
                     "NSLocationWhenInUseUsageDescription": [
+                        {
+                            "xml": "<string> </string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string />",
+                            "count": 1
+                        }
+                    ],
+                    "NSCameraUsageDescription": [
+                        {
+                            "xml": "<string> </string>",
+                            "count": 1
+                        }
+                    ],
+                    "NSPhotoLibraryUsageDescription": [
                         {
                             "xml": "<string> </string>",
                             "count": 1
@@ -79,6 +107,14 @@
             "PACKAGE_NAME": "com.ionicframework.places752714"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.places752714"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.places752714"
+        },
+        "com.mbppower.camerapreview": {
             "PACKAGE_NAME": "com.ionicframework.places752714"
         }
     },
@@ -164,6 +200,46 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
+        },
+        {
+            "id": "cordova-plugin-camera.Camera",
+            "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+            "pluginId": "cordova-plugin-camera",
+            "clobbers": [
+                "Camera"
+            ]
+        },
+        {
+            "id": "cordova-plugin-camera.CameraPopoverOptions",
+            "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+            "pluginId": "cordova-plugin-camera",
+            "clobbers": [
+                "CameraPopoverOptions"
+            ]
+        },
+        {
+            "id": "cordova-plugin-camera.camera",
+            "file": "plugins/cordova-plugin-camera/www/Camera.js",
+            "pluginId": "cordova-plugin-camera",
+            "clobbers": [
+                "navigator.camera"
+            ]
+        },
+        {
+            "id": "cordova-plugin-camera.CameraPopoverHandle",
+            "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
+            "pluginId": "cordova-plugin-camera",
+            "clobbers": [
+                "CameraPopoverHandle"
+            ]
+        },
+        {
+            "id": "com.mbppower.camerapreview.CameraPreview",
+            "file": "plugins/com.mbppower.camerapreview/www/CameraPreview.js",
+            "pluginId": "com.mbppower.camerapreview",
+            "clobbers": [
+                "cordova.plugins.camerapreview"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -174,6 +250,8 @@
         "cordova-plugin-splashscreen": "4.0.1",
         "cordova-plugin-statusbar": "2.2.1",
         "cordova-plugin-whitelist": "1.3.1",
-        "ionic-plugin-keyboard": "2.2.1"
+        "ionic-plugin-keyboard": "2.2.1",
+        "cordova-plugin-camera": "2.3.1",
+        "com.mbppower.camerapreview": "0.0.8"
     }
 }
