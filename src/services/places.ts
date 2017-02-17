@@ -3,7 +3,7 @@ import {Location} from '../models/location';
 export class PlacesService {
 
   private places: Place[] = [];
-
+  
   addPlace(
   	title: string,
   	description: string,
@@ -16,6 +16,10 @@ export class PlacesService {
 
   loadPlaces(){
   	return this.places.slice();
+  }
+
+  deletePlace(index:number){
+  	this.places.splice(index,1);
   }
 
 }

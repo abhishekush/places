@@ -39,9 +39,10 @@ export class AddPlacePage {
   	this.placesService.addPlace(
         form.value.title,
         form.value.description,
-        form.value.location,
+        this.location,
         form.value.imageUrl
       );
+    console.log(form.value);
     form.reset();
     this.location = {
       lat: 25.771315,
