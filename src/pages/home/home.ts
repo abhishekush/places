@@ -28,7 +28,6 @@ export class HomePage {
   ionViewWillEnter(){
 
   	this.places = this.placesService.loadPlaces();
-  	console.log(this.places);
   }
 
   onOpenPlace(place:Place,index:number){

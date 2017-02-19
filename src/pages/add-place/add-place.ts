@@ -40,7 +40,7 @@ export class AddPlacePage {
         form.value.title,
         form.value.description,
         this.location,
-        form.value.imageUrl
+        this.imageUrl
       );
     console.log(form.value);
     form.reset();

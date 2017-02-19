@@ -36,6 +36,9 @@
         },
         "com.mbppower.camerapreview": {
             "PACKAGE_NAME": "com.ionicframework.places752714"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.places752714"
         }
     },
     "dependent_plugins": {
