@@ -1,4 +1,4 @@
-# Places (Ionic native)
+# FreezeIt (Ionic native)
 
 ## Official Documentation
 

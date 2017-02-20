@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import {ModalController,LoadingController, ToastController} from 'ionic-angular';
 import {SetLocationPage} from '../set-location/set-location';
 import {Location} from '../../models/location';
-import {Geolocation, Camera} from 'ionic-native';
+import {Geolocation, Camera, File, Entry, FileError} from 'ionic-native';
 import {PlacesService} from '../../services/places';
 
 /*
@@ -13,6 +13,9 @@ import {PlacesService} from '../../services/places';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
+declare var cardova:any;
+
 @Component({
   selector: 'page-add-place',
   templateUrl: 'add-place.html'
@@ -89,9 +92,32 @@ export class AddPlacePage {
   		encodingType: Camera.EncodingType.JPEG,
   		correctOrientation: true
   	}).then(imageData=>{
-  		this.imageUrl = imageData;
-  	}).catch(error=>{
-  		console.log(error);
+  		
+      const currentName = imageData.replace(/^.*[\\\/]/, '');      //Get name of image (after all the '/')
+      const path = imageData.replace(/[^\/]*$/, '');               //Get path of image (till the last '/')
+      File.moveFile(path, currentName, cardova.file.dataDirectory,currentName)
+      .then((data: Entry)=>{
+        this.imageUrl = data.nativeURL;
+        Camera.cleanup();
+
+      })
+      .catch(
+          (err: FileError) => {
+            const toast = this.toastCtrl.create({
+              message: 'could not save the image, Please try again...',
+              duration : 2500
+            });
+            toast.present();
+            Camera.cleanup();
+          }
+        );            
+  	  
+    }).catch(error=>{
+            const toast = this.toastCtrl.create({
+              message: 'could not take the image, Please try again...',
+              duration : 2500
+            });
+            toast.present()
   	})
   }
 
