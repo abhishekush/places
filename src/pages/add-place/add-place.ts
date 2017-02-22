@@ -14,7 +14,7 @@ import {PlacesService} from '../../services/places';
   Ionic pages and navigation.
 */
 
-declare var cardova:any;
+declare var cordova:any;
 
 @Component({
   selector: 'page-add-place',
@@ -95,7 +95,8 @@ export class AddPlacePage {
   		
       const currentName = imageData.replace(/^.*[\\\/]/, '');      //Get name of image (after all the '/')
       const path = imageData.replace(/[^\/]*$/, '');               //Get path of image (till the last '/')
-      File.moveFile(path, currentName, cardova.file.dataDirectory,currentName)
+      const newFileName = new Date().getUTCMilliseconds()+'.jpg';
+      File.moveFile(path, currentName, cordova.file.dataDirectory,newFileName)
       .then((data: Entry)=>{
         this.imageUrl = data.nativeURL;
         Camera.cleanup();
@@ -104,7 +105,7 @@ export class AddPlacePage {
       .catch(
           (err: FileError) => {
             const toast = this.toastCtrl.create({
-              message: 'could not save the image, Please try again...',
+              message: 'could not save the image, Please try again...'+err,
               duration : 2500
             });
             toast.present();
@@ -114,7 +115,7 @@ export class AddPlacePage {
   	  
     }).catch(error=>{
             const toast = this.toastCtrl.create({
-              message: 'could not take the image, Please try again...',
+              message: 'could not take the image, Please try again...'+error,
               duration : 2500
             });
             toast.present()

@@ -8,6 +8,8 @@ import {SetLocationPage} from '../pages/set-location/set-location';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import {PlacesService} from '../services/places';
 import {Storage} from '@ionic/storage';
+import {CapitalizePipe} from '../pipes/capitalize.pipe';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import {Storage} from '@ionic/storage';
     HomePage,
     PlacePage,
     AddPlacePage,
-    SetLocationPage
+    SetLocationPage,
+    CapitalizePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),

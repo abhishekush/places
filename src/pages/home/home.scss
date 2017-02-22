@@ -1,3 +1,8 @@
 page-home {
+ $card-content-color: rgba(223, 234, 236, 0.34);
 
+ ion-card-content {
+   background: $card-content-color;
+   
+ }
 }
