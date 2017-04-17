@@ -18,16 +18,20 @@ export class User {
     console.log('Hello User Provider');
   }
 
-  private user: any = {
+  public user: any = {
+  	uid:'',
   	login: false
   };
 
-  authenticate(){
+  authenticate(uid){
+  	
   	this.user.login = true;
+  	this.user.uid = uid;
   	return this.storage.set('user', this.user)
   	.then(() => {return true})
   	.catch(() => {
   		this.user.login = false;
+  		this.user.uid = '';
   		return false
   	});
   }
@@ -41,6 +45,8 @@ export class User {
 
   logout(){
   	this.user.login = false;
+    this.user.login = false;
+    this.user.uid = '';  	
   	return this.storage.set('user', this.user)
   	.then(() => {
   		return true;

@@ -49,11 +49,15 @@ export class HomePage implements OnInit {
       }
     })
   	this.places = this.placesService.loadPlaces();
+    console.log('home', this.places);
   }
 
   onOpenPlace(place:Place,index:number){
     const modal = this.modalCtrl.create(PlacePage,{place:place,index:index});
     modal.present();
+    modal.onWillDismiss(()=>{
+   this.places = this.placesService.loadPlaces();   
+    })
   }
 
   logout(){

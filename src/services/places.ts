@@ -3,6 +3,7 @@ import {Location} from '../models/location';
 import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {File} from 'ionic-native';
+import {User} from '../providers/user';
 
 declare var cordova:any;
 
@@ -10,10 +11,16 @@ declare var cordova:any;
 export class PlacesService {
 
   private places: Place[] = [];
+  uid: any;
 
   constructor(
-     public storage: Storage
-    ){}
+     public storage: Storage,
+     private user: User
+    ){
+    console.log('asdad');
+    
+    console.log(this.user.user);
+  }
   
   addPlace(
   	title: string,
@@ -23,11 +30,18 @@ export class PlacesService {
   	){
   	let place = new Place(title,description,location,imageUrl);
   	this.places.push(place);
-    this.storage.set('places', this.places)
-    .then()
-    .catch(err=>{
-      this.places.splice(this.places.indexOf(place),1);
-    });
+    this.storage.get('user')
+    .then((res) => {
+      this.uid = res.uid;
+        this.storage.set(this.uid, this.places)
+        .then(()=> console.log('uid hai ',this.uid))
+        .catch(err=>{
+          this.places.splice(this.places.indexOf(place),1);
+        }); 
+    })
+   
+  
+
   }
 
 
@@ -36,9 +50,14 @@ export class PlacesService {
   }
 
   fetchPlaces(){
-    return this.storage.get('places')
+    return this.storage.get('user')
+    .then((res) => {
+      this.uid = res.uid;
+      console.log('yahan uid',this.uid);
+    return this.storage.get(this.uid)
     .then(
-        (places:Place[])=>{
+        (places: Place[])=>{
+          console.log('fetch',places);
           this.places = places != null ? places : [];
           return this.places;
         }
@@ -46,19 +65,27 @@ export class PlacesService {
     .catch(err=>{
       console.log(err);
     });
+    })
+
   }
   
   deletePlace(index:number){
-    const place = this.places[index];
-  	this.places.splice(index,1);
-    this.storage.set('places',this.places)
-    .then(()=>{
-      this.removeFile(place);
-    })
-    .catch(err=>{
-      console.log(err);
-     }
-    );
+    return this.storage.get('user')
+    .then((res) => {
+      this.uid = res.uid;
+      const place = this.places[index];
+      this.places.splice(index,1);
+      this.storage.set(this.uid, this.places)
+      .then((res) => {
+        console.log(this.places);
+        this.removeFile(place);
+      })
+      .catch(err=>{
+        console.log(err);
+       }
+      );      
+    })    
+
   }
 
   private removeFile(place: Place){

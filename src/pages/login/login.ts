@@ -39,7 +39,8 @@ export class LoginPage {
   	load.present();
   	this.database.login(this.user)
   	.then((res) => {
-  		this.userService.authenticate()
+  		console.log(res);
+  		this.userService.authenticate(res.uid)
   		.then((res) => {
   			if(res){
               this.navCtrl.setRoot(HomePage);
